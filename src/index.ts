@@ -1,6 +1,6 @@
 import express from "express";
 import { graphqlHTTP } from "express-graphql";
-import mongoose from "mongoose";
+import mongoose, { ConnectOptions } from "mongoose";
 import dotenv from "dotenv";
 import schema from "./schema";
 
@@ -8,11 +8,14 @@ dotenv.config();
 
 const app = express();
 
-// Setup connection
-mongoose.connect(process.env.MONGO_URI as string, {
+// Define MongoDB connection options
+const mongoOptions: ConnectOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-});
+} as any;
+
+// Setup connection
+mongoose.connect(process.env.MONGO_URI as string, mongoOptions);
 
 mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB");
