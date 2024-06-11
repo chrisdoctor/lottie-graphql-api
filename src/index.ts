@@ -2,7 +2,7 @@ import express from "express";
 import { graphqlHTTP } from "express-graphql";
 import mongoose, { ConnectOptions } from "mongoose";
 import dotenv from "dotenv";
-import schema from "./schema";
+import schema from "./schema.ts";
 
 dotenv.config();
 
