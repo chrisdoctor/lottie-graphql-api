@@ -1,5 +1,9 @@
-import { GraphQLObjectType, GraphQLSchema, GraphQLString } from "graphql";
-import { GraphQLID } from "graphql";
+import {
+  GraphQLID,
+  GraphQLObjectType,
+  GraphQLSchema,
+  GraphQLString,
+} from "graphql";
 import mongoose from "mongoose";
 
 // Mongoose item document
@@ -24,6 +28,20 @@ const ItemType = new GraphQLObjectType({
   },
 });
 
+// Query Object type
+const Query = new GraphQLObjectType({
+  name: "Query",
+  fields: {
+    item: {
+      type: ItemType,
+      args: { id: { type: GraphQLString } },
+      resolve(_parent, args) {
+        return Item.findOne({ id: args.id });
+      },
+    },
+  },
+});
+
 // Mutation for adding new item
 const Mutation = new GraphQLObjectType({
   name: "Mutation",
@@ -34,7 +52,7 @@ const Mutation = new GraphQLObjectType({
         id: { type: GraphQLString },
         description: { type: GraphQLString },
       },
-      resolve(parent, args) {
+      resolve(_parent, args) {
         const item = new Item({
           id: args.id,
           description: args.description,
@@ -46,5 +64,6 @@ const Mutation = new GraphQLObjectType({
 });
 
 export default new GraphQLSchema({
+  query: Query,
   mutation: Mutation,
 });
