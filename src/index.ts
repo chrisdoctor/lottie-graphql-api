@@ -3,6 +3,7 @@ import { graphqlHTTP } from "express-graphql";
 import mongoose, { ConnectOptions } from "mongoose";
 import dotenv from "dotenv";
 import schema from "./schema.ts";
+import cors from "cors";
 
 dotenv.config();
 
@@ -21,11 +22,25 @@ mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB");
 });
 
+// Setup CORS options
+const corsOptions = {
+  origin:
+    process.env.NODE_ENV === "production"
+      ? process.env.ORIGIN_APP_PROD
+      : process.env.ORIGIN_APP_DEV,
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+// CORS middleware
+app.use(cors(corsOptions));
+
+// GraphQL endpoint
 app.use(
   "/graphql",
   graphqlHTTP({
     schema,
-    graphiql: true,
+    graphiql: process.env.NODE_ENV === "development", // Enable only when in dev node
   })
 );
 
