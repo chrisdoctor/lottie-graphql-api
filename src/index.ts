@@ -9,6 +9,9 @@ dotenv.config();
 
 const app = express();
 
+// Increase the limit for incoming requests
+app.use(express.json({ limit: "5mb" }));
+
 // Define MongoDB connection options
 const mongoOptions: ConnectOptions = {
   useNewUrlParser: true,
