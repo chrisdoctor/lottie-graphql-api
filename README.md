@@ -1,4 +1,4 @@
-# Lottie Animatio Management System API with Node.js, TypeScript and GraphQL
+# Lottie Animation Management System API with Node.js, TypeScript and GraphQL
 
 ## Description
 
