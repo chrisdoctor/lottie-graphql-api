@@ -7,7 +7,7 @@ import {
   GraphQLString,
 } from "graphql";
 import mongoose from "mongoose";
-import { ItemDocument } from "./interfaces";
+import { ItemDocument } from "./interfaces/ItemDocument";
 
 const LottieFileSchema: mongoose.Schema = new mongoose.Schema({
   filename: { type: String, required: true },
