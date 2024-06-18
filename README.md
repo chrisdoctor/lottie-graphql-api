@@ -1,1 +1,1 @@
-# lottie-ms
+# lottie-graphql-api
